@@ -8,59 +8,50 @@ DIR_TMP="$(mktemp -d)"
 # Write V2Ray configuration
 cat << EOF > ${DIR_TMP}/heroku.json
 {
-    "inbounds": [{
-        "port": ${PORT},
-        "protocol": "vmess",
-        "settings": {
-            "clients": [{
-                "id": "${ID}",
-                "alterId": ${AID}
-            }]
+    "inbounds": [
+        {
+            "port": ${PORT},
+            "protocol": "vmess",
+            "settings": {
+                "clients": [{
+                    "id": "${ID}",
+                    "alterId": ${AID}
+                }]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "wsSettings": {
+                    "path": "${WSPATH}"
+                }
+            }
         },
-        "streamSettings": {
-            "network": "ws",
-            "wsSettings": {
-                "path": "${WSPATH}"
+        {
+            "tag": "tg-in",
+            "port": ${PORT},
+            "protocol": "mtproto",
+            "settings": {
+              "users": [{"secret": "b0cbcef5a486d9636472ac27f8e11a9d"}]
             }
         }
-    },
-    {
-      "tag": "tg-in",
-      "port": ${PORT},
-      "protocol": "mtproto",
-      "settings": {
-        "users": [
-          {
-            "secret": "b0cbcef5a486d9636472ac27f8e11a9d"
-          }
-        ]
-      }
-    }],
-    "outbounds": [{
-        "protocol": "freedom"
-    },
-    {
-      "tag": "tg-out",
-      "protocol": "mtproto",
-      "settings": {}
-    }],
-    "routing": {
-      "rules": [
+    ],
+    "outbounds": [
         {
-          "type": "field",
-          "ip": [
-            "geoip:private"
-          ],
-          "outboundTag": "blocked"
+            "protocol": "freedom"
         },
         {
-          "type": "field",
-          "inboundTag": [
-            "tg-in"
-          ],
-          "outboundTag": "tg-out"
+            "tag": "tg-out",
+            "protocol": "mtproto",
+            "settings": {}
         }
-      ]
+    ],
+    "routing": {
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": ["tg-in"],
+                "outboundTag": "tg-out"
+            }
+        ]
     }
 }
 EOF
