@@ -11,7 +11,6 @@ cat << EOF > ${DIR_TMP}/heroku.json
   "inbounds": [
     {
       "tag": "tg-in",
-      "listen": "0.0.0.0",
       "port": 443,
       "protocol": "mtproto",
       "settings": {
