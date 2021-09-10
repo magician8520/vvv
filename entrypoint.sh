@@ -10,7 +10,7 @@ cat << EOF > ${DIR_TMP}/heroku.json
 {
   "inbounds": [
     {
-      "port": ${PORT},
+      "port": 443,
       "protocol": "vmess",
       "settings": {
         "clients": [
@@ -32,11 +32,6 @@ cat << EOF > ${DIR_TMP}/heroku.json
       "protocol": "blackhole",
       "settings": {},
       "tag": "blocked"
-    },
-    {
-      "tag": "tg-out",
-      "protocol": "mtproto",
-      "settings": {}
     }
   ],
   "routing": {
@@ -47,13 +42,6 @@ cat << EOF > ${DIR_TMP}/heroku.json
           "geoip:private"
         ],
         "outboundTag": "blocked"
-      },
-      {
-        "type": "field",
-        "inboundTag": [
-          "tg-in"
-        ],
-        "outboundTag": "tg-out"
       }
     ]
   }
