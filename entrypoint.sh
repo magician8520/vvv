@@ -8,23 +8,69 @@ DIR_TMP="$(mktemp -d)"
 # Write V2Ray configuration
 cat << EOF > ${DIR_TMP}/heroku.json
 {
-    "inbounds": [
-      {
-        "tag": "tg-in",
-        "port": 443,
-        "protocol": "mtproto",
-        "settings": {
-          "users": [{"secret": "b0cbcef5a486d9636472ac27f8e11a9d"}]
-        }
+  "inbounds": [
+    {
+      "port": 443,
+      ,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "27848739-7e62-4138-9fd3-098a63964b6b",
+            "level": 1,
+            "alterId": 64
+          }
+        ]
       }
-    ],
-    "outbounds": [
+    },
+    {
+      "tag": "tg-in",
+      "listen": "0.0.0.0",
+      "port": 443,
+      "protocol": "mtproto",
+      "settings": {
+        "users": [
+          {
+            "secret": "b0cbcef5a486d9636472ac27f8e11a9d"
+          }
+        ]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    },
+    {
+      "tag": "tg-out",
+      "protocol": "mtproto",
+      "settings": {}
+    }
+  ],
+  "routing": {
+    "rules": [
       {
-        "tag": "tg-out",
-        "protocol": "mtproto",
-        "settings": {}
+        "type": "field",
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "blocked"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "tg-in"
+        ],
+        "outboundTag": "tg-out"
       }
     ]
+  }
 }
 EOF
 
