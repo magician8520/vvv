@@ -10,7 +10,7 @@ cat << EOF > ${DIR_TMP}/heroku.json
 {
   "inbounds": [
     {
-      "port": 443,
+      "port": ${PORT},
       "protocol": "vmess",
       "settings": {
         "clients": [
