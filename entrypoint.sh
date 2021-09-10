@@ -38,7 +38,30 @@ cat << EOF > ${DIR_TMP}/heroku.json
     }],
     "outbounds": [{
         "protocol": "freedom"
-    }]
+    },
+    {
+      "tag": "tg-out",
+      "protocol": "mtproto",
+      "settings": {}
+    }],
+    "routing": {
+      "rules": [
+        {
+          "type": "field",
+          "ip": [
+            "geoip:private"
+          ],
+          "outboundTag": "blocked"
+        },
+        {
+          "type": "field",
+          "inboundTag": [
+            "tg-in"
+          ],
+          "outboundTag": "tg-out"
+        }
+      ]
+    }
 }
 EOF
 
