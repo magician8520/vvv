@@ -26,7 +26,7 @@ cat << EOF > ${DIR_TMP}/heroku.json
     },
     {
       "tag": "tg-in",
-      "port": 934,
+      "port": ${PORT},
       "protocol": "mtproto",
       "settings": {
         "users": [
