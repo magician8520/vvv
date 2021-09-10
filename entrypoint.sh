@@ -32,13 +32,6 @@ cat << EOF > ${DIR_TMP}/heroku.json
       "rules": [
         {
           "type": "field",
-          "ip": [
-            "geoip:private"
-          ],
-          "outboundTag": "blocked"
-        },
-        {
-          "type": "field",
           "inboundTag": [
             "tg-in"
           ],
