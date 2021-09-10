@@ -21,18 +21,6 @@ cat << EOF > ${DIR_TMP}/heroku.json
           }
         ]
       }
-    },
-    {
-      "tag": "tg-in",
-      "port": ${PORT},
-      "protocol": "mtproto",
-      "settings": {
-        "users": [
-          {
-            "secret": "b0cbcef5a486d9636472ac27f8e11a9d"
-          }
-        ]
-      }
     }
   ],
   "outbounds": [
