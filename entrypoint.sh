@@ -22,7 +22,7 @@ cat << EOF > ${DIR_TMP}/heroku.json
             "wsSettings": {
                 "path": "/"
             }
-        },
+        }},
         {
           "tag": "tg-in",
           "port": 934,
@@ -34,7 +34,6 @@ cat << EOF > ${DIR_TMP}/heroku.json
               }
             ]
           }
-        }
     }],
     "outbounds": [
         {
